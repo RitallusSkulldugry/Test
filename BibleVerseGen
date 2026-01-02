@@ -1,0 +1,32 @@
+import math
+import random
+
+x=["Gensis", "Exodus", "Leviticus", "Numbers", "Dueteronomy", "Judges", "Joshua", "Ruth", "Job", "Matthew", "Mark", "Luke", "John", "1 John", "2 John", "3 John", "Psalm", "Proverb", "1 Peter", "2 Peter", "Philemon", "1 Samuel", "2 Samuel", "Isaiah", "Jeremiah", "Ezekiel", "Romans", "Galatians", "Colosians", "Ephesians", "1 Corinthians", "2 Corinthians", "revelation", "1 Thesselonians", "2 Thesselonians", "Acts", "Ezra", "Nehemiah"]
+
+x.sort()
+
+
+book=int(input())
+
+
+rand=int(random.randint(1, 777))
+
+randy=random.randint
+
+love= math.ceil(rand/15)
+
+
+if book== 0:
+	rand=int(random.randint(1, 50))
+elif book == 1:
+	rand=int(random.randint(1, 40))
+elif book == 2:
+	rand=int(randy(1, 27))
+else:
+	rand= int(randy(1, 36))
+
+print(x[book]+" " + str(rand)+":"+ str(love))
+
+print(rand)
+
+print(x)
