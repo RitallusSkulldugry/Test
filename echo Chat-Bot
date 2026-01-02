@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chatbot Interface</title>
+</head>
+<body>
+	<div id="chatbox">
+		<div class="message received">
+			<p>Hi there! How can I assist you today?</p>
+		</div>
+	</div>
+	<form>
+		<input type="text" id="input-message" placeholder="Type your message here...">
+		<button type="submit" id="send-button">Send</button>
+	</form>
+	<script>
+		// Define variables for the input field and send button
+		var inputField = document.getElementById('input-message');
+		var sendButton = document.getElementById('send-button');
+
+		// Add an event listener to the send button to handle user input
+		sendButton.addEventListener('click', function(event) {
+			event.preventDefault(); // Prevent the form from submitting
+
+			// Retrieve the user's input message and create a new message element
+			var userMessage = inputField.value;
+			var messageElement = document.createElement('div');
+			messageElement.classList.add('message', 'sent');
+			messageElement.innerHTML = '<p>' + userMessage + '</p>';
+
+			// Add the message element to the chatbox and clear the input field
+			var chatbox = document.getElementById('chatbox');
+			chatbox.appendChild(messageElement);
+			inputField.value = '';
+
+			// Call a function to handle the chatbot's response
+			handleChatbotResponse(userMessage);
+		});
+
+		// Define a function to handle the chatbot's response
+		function handleChatbotResponse(userMessage) {
+			// Use an API to send the user's message to the chatbot and retrieve a response
+			// For this example, we'll just simulate a response with a simple timeout
+			setTimeout(function() {
+				// Create a new message element for the chatbot's response
+				var messageElement = document.createElement('div');
+				messageElement.classList.add('message', 'received');
+				messageElement.innerHTML = '<p>Hello, ' + userMessage + '!</p>';
+
+				// Add the message element to the chatbox
+				var chatbox = document.getElementById('chatbox');
+				chatbox.appendChild(messageElement);
+			}, 1000);
+		}
+	</script>
+</body>
+</html>
