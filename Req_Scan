@@ -1,0 +1,49 @@
+import requests as req
+
+import os
+import sys
+from datetime import datetime
+#header = {"User Agent": "Mozilla/5.0 (Macinto
+#sh; Intel Mac OS X 10_10_1) AppleWebKit/537.3
+##6 (KHTML, like Gecko) Chrome/39.0.2171.95 Saf
+#ari/537.36"}
+
+
+now=datetime.now()
+
+mark= now.strftime("%B %d, %Y  / %H:%M:%S")
+
+print(mark)
+
+K=input()
+
+s=[K, 2]
+
+header = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+
+
+def lists(x,n):
+	import string as s
+	from itertools import product as p
+	L=list(s.ascii_lowercase)
+	j=list(p(x, repeat=int(n)))
+	l=[]
+	urls=0
+	for i in j:
+		f="".join(i)
+		l.append(f)
+	print("---"* 20)
+	for w in l:
+		try:
+			
+			res=req.get("https://www." + w + ".com", headers=header, timeout=2)
+			print(res.url)
+			urls=urls+1
+		except Exception as e:
+			pass
+
+	print("---" * 20)
+	print(str(urls)+ " https servers up")
+	print("  ")
+
+lists(s[0], s[1])
