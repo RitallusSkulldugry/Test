@@ -1,0 +1,161 @@
+#1.  Make a web ACL
+
+#2. make a  Rules [allow, block, captcha, count]
+
+#3.  make Rule groups  collection of rules
+
+import socket
+import threading
+import sys
+import time
+import random
+
+
+
+ADDRESS=f'127.0.0.{random.randint(18, 30)}'
+port=random.randint(900, 8000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################FIREWALL PROTO TYPE
+################################  FIREWALL PROTO TYPE
+######################################
+########  TITLE #####################
+###########################
+
+
+
+
+
+
+
+def ShowBan():
+  with open('ACLlist.txt', 'r') as f:
+    print(f.read())
+  return 0
+
+
+
+
+
+def update_ACL(command):
+  with open('ACLlist.txt', 'a') as f:  #r is read, a is append,
+    f.write(f'\n{command}')
+  print('ACL updated')
+  return 0
+
+
+def DelACL(delete):
+
+  try:
+      with open('ACLlist.txt', 'r') as fr:
+          # reading line by line
+          lines = fr.readlines()
+
+
+        # opening in writing mode
+        #Not really sure how this works.
+          with open('ACLlist.txt', 'w') as fw:
+            for line in lines:
+              if line.strip('\n') != delete:
+                fw.write(line)
+
+
+      print("Deleted")
+
+  except:
+      print("Oops! something error")
+  return 0
+
+
+def HostCMD():
+  while True:
+    try:
+      x=input()
+      if x=='ShowBan':
+        ShowBan()
+      elif x== "UpdateACL":
+        cmd=input('Add Rule:  ')
+        update_ACL(cmd)
+      elif x== 'AddBan':
+        IP_Input=input("Black List an IP: ")
+        BanIP(IP_Input)
+      elif x== 'DeleteACL':
+        Del=input('Delete Rule: ')
+        DelACL(Del)
+      elif x in ('-h', 'help', 'h'):
+        print(f"This server is up the ip is {ADDRESS} : at port {port}")
+        print(f" This application is a Application Firewall used to monitor web traffic")
+        print(""""\n - \n - \n  ===::Command List::===
+
+      ShowBan= will show the list of ban IP addresses
+      UpdateACL= Update the ACL list
+      DeleteACL= Delete a rule from the ACL list
+
+      help= show this message
+
+      exit= to end application""")
+      elif x== 'exit':
+        break
+      else:
+        print('h for help')
+    except Exception as e:
+      print(e)
+  return 0
+
+
+
+def server():
+    #server
+    s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind((ADDRESS, int(port))) # Convert port to integer
+    s.listen()
+    print("Monitoring Traffic, Web Applocation Firewall")
+    server=True
+    while server:
+      cmd_thread=threading.Thread(target=HostCMD)
+      ret=cmd_thread.start()
+
+      #Find a way to end this while loop
+
+      client, ip=s.accept()
+      thread=threading.Thread(target=handle, args=[client, ip], daemon=True)  #Daemon kwarg set to True will make this thread end when all other threads end
+
+
+      thread.start()
+
+
+def handle(cli, ip):
+    while True:
+        x=cli.recv(1050)
+        if ip in banlist:
+          print(f"client {ip} is ban.  Ending connection.")
+          break
+        if not x:
+          print("connection ended by client")
+          break
+        print(x.decode())
+
+
+
+
+################### CALLING FIREWALL SERVER
+################################  CALLING FIREWALL SERVER
+######################################
+########  TITLE #####################
+###########################
+
+server()
