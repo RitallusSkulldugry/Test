@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Vars and pointer.
+// %f for floats
+// %d for ints
+/// %c for characters
+// %s for a string
+// an array is a list of chars.
+
+
+
+
+
+
+void Equaition(int nums)
+{
+
+	float Ans = (17 ^ nums) - 5
+
+	printf("%f", Ans);
+	
+}
+
+
+
+
+
+int main(int argc, char* argv[])
+{
+
+	int Pie[] = {3, 1, 4, 1, 5, 9, 2, 6, 5};
+	
+	int len = sizeof(Pie);
+	
+	for (i = 0; <=len;  i++) {
+
+		Equaition(Pie[i])
+	}
+	
+
+
+	return 0;
+}
+
+
+
